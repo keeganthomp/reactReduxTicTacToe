@@ -22,3 +22,20 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.board {
+  border: 1px solid black;
+  height: 506px;
+  width: 506px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5% auto;
+}
+
+.playingSquare {
+  width: calc(500px/3);
+  height: calc(500px/3);
+  border: 1px solid black;
+  
+}
