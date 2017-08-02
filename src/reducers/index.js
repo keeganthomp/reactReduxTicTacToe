@@ -1,19 +1,41 @@
 import { combineReducers } from "redux";
+let player = 0;
 
-const PlayerChoice = (state = null, action) => {
+let initalState = [];
+let playerOne = [];
+let playerTwo = [];
+
+const GamePlay = (state = initalState, action) => {
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case "PLAYER_PICK":
-      return action.payload;
+      let square = action.payload;
+      if (player === 0) {
+        player = 1;
+        let selectedSquare = document.getElementById(square);
+        selectedSquare.innerHTML = "X";
+        initalState.push({ currentPlayer: 1, marker: "X", square: square });
+        playerOne.push(square);
+        console.log(playerOne);        
+        console.log(initalState);        
+        return { currentPlayer: 0, marker: "X", square: square };
+      } else if (player === 1) {
+        let selectedSquare = document.getElementById(square);
+        selectedSquare.innerHTML = "O";
+        player = 0;
+        initalState.push({ currentPlayer: 0, marker: "O", square: square });
+        console.log(initalState);
+        return { currentPlayer: 1, marker: "O", square: square };
+      }
+
+      return state;
     default:
       return state;
   }
 };
 
-// can never return a mutated state in reducers..must be fresh state or original
-//because we dont have a selected book right off the bat, we get an error
-
 const rootReducer = combineReducers({
-  PlayerChoice: PlayerChoice
+  Choice: GamePlay
 });
 
 export default rootReducer;
